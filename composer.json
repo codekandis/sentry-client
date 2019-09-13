@@ -33,7 +33,9 @@
 		"source": "https://github.com/codekandis/sentry-client/tree/master"
 	},
 	"require": {
-		"php": ">=7.4"
+		"php": ">=7.4",
+		"codekandis/constants-classes-translator": "^1",
+		"sentry/sdk": "^2"
 	},
 	"require-dev": {
 		"roave/security-advisories": "dev-master",
