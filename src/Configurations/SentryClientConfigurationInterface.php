@@ -1,6 +1,13 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\SentryClient\Configurations;
 
+use CodeKandis\SentryClient\Outputs\ContextOutputInterface;
+use CodeKandis\SentryClient\Outputs\ErrorOutputInterface;
+use CodeKandis\SentryClient\Outputs\MessageOutputInterface;
+use CodeKandis\SentryClient\Outputs\TagsOutputInterface;
+use CodeKandis\SentryClient\Outputs\ThrowableOutputInterface;
+use CodeKandis\SentryClient\Outputs\UserOutputInterface;
+
 /**
  * Represents the interface of all `SentryClient` configurations.
  * @package codekandis/sentry-client
@@ -9,8 +16,8 @@ namespace CodeKandis\SentryClient\Configurations;
 interface SentryClientConfigurationInterface
 {
 	/**
-	 * Gets the DSN of the sentry client account.
-	 * @return string The DSN of the sentry client account.
+	 * Gets the DSN of the account of the sentry instance.
+	 * @return string The DSN of the account of the sentry instance.
 	 */
 	public function getDsn(): string;
 
@@ -21,7 +28,7 @@ interface SentryClientConfigurationInterface
 	public function getErrorTypes(): ?int;
 
 	/**
-	 * Gets if the errors should be displayed or not.
+	 * Gets whether the errors should be displayed or not.
 	 * @return bool True if the errors should be displayed, false otherwise.
 	 */
 	public function getDisplayErrors(): bool;
@@ -157,4 +164,40 @@ interface SentryClientConfigurationInterface
 	 * @return ?int The number of attempts to send an event before erroring dropping and it from the queue.
 	 */
 	public function getSendAttempts(): ?int;
+
+	/**
+	 * Gets the context output of the sentry client.
+	 * @return ?ContextOutputInterface The context output of the sentry client.
+	 */
+	public function getContextOutput(): ?ContextOutputInterface;
+
+	/**
+	 * Gets the tags output of the sentry client.
+	 * @return ?TagsOutputInterface The tags output of the sentry client.
+	 */
+	public function getTagsOutput(): ?TagsOutputInterface;
+
+	/**
+	 * Gets the user output of the sentry client.
+	 * @return ?UserOutputInterface The user output of the sentry client.
+	 */
+	public function getUserOutput(): ?UserOutputInterface;
+
+	/**
+	 * Gets the message output of the sentry client.
+	 * @return ?MessageOutputInterface The message output of the sentry client.
+	 */
+	public function getMessageOutput(): ?MessageOutputInterface;
+
+	/**
+	 * Gets the error output of the sentry client.
+	 * @return ?MessageOutputInterface The error output of the sentry client.
+	 */
+	public function getErrorOutput(): ?ErrorOutputInterface;
+
+	/**
+	 * Gets the throwable output of the sentry client.
+	 * @return ?MessageOutputInterface The throwable output of the sentry client.
+	 */
+	public function getThrowableOutput(): ?ThrowableOutputInterface;
 }
