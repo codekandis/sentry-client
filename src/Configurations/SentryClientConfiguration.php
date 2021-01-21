@@ -1,6 +1,13 @@
 <?php declare( strict_types = 1 );
 namespace CodeKandis\SentryClient\Configurations;
 
+use CodeKandis\SentryClient\Outputs\ContextOutputInterface;
+use CodeKandis\SentryClient\Outputs\ErrorOutputInterface;
+use CodeKandis\SentryClient\Outputs\MessageOutputInterface;
+use CodeKandis\SentryClient\Outputs\TagsOutputInterface;
+use CodeKandis\SentryClient\Outputs\ThrowableOutputInterface;
+use CodeKandis\SentryClient\Outputs\UserOutputInterface;
+
 /**
  * Represents a `SentryClient` configuration.
  * @package codekandis/sentry-client
@@ -21,7 +28,7 @@ class SentryClientConfiguration implements SentryClientConfigurationInterface
 	private ?int $errorTypes = null;
 
 	/**
-	 * Stores if the errors should be displayed or not.
+	 * Stores whether the errors should be displayed or not.
 	 * @var bool
 	 */
 	private bool $displayErrors = false;
@@ -159,6 +166,42 @@ class SentryClientConfiguration implements SentryClientConfigurationInterface
 	private ?int $sendAttempts = null;
 
 	/**
+	 * Stores the context output of the sentry client.
+	 * @var ?ContextOutputInterface
+	 */
+	private ?ContextOutputInterface $contextOutput = null;
+
+	/**
+	 * Stores the tags output of the sentry client.
+	 * @var ?TagsOutputInterface
+	 */
+	private ?TagsOutputInterface $tagsOutput = null;
+
+	/**
+	 * Stores the user output of the sentry client.
+	 * @var ?UserOutputInterface
+	 */
+	private ?UserOutputInterface $userOutput = null;
+
+	/**
+	 * Stores the message output of the sentry client.
+	 * @var ?MessageOutputInterface
+	 */
+	private ?MessageOutputInterface $messageOutput = null;
+
+	/**
+	 * Stores the error output of the sentry client.
+	 * @var ?ErrorOutputInterface
+	 */
+	private ?ErrorOutputInterface $errorOutput = null;
+
+	/**
+	 * Stores the throwable output of the sentry client.
+	 * @var ?ThrowableOutputInterface
+	 */
+	private ?ThrowableOutputInterface $throwableOutput = null;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getDsn(): string
@@ -207,7 +250,7 @@ class SentryClientConfiguration implements SentryClientConfigurationInterface
 	}
 
 	/**
-	 * Sets if the errors should be displayed or not.
+	 * Sets whether the errors should be displayed or not.
 	 * @param bool $displayErrors True if the errors should be displayed, false otherwise.
 	 * @return SentryClientConfiguration The `SentryClient` configuration.
 	 */
@@ -654,6 +697,126 @@ class SentryClientConfiguration implements SentryClientConfigurationInterface
 	public function setSendAttempts( ?int $sendAttempts ): self
 	{
 		$this->sendAttempts = $sendAttempts;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getContextOutput(): ?ContextOutputInterface
+	{
+		return $this->contextOutput;
+	}
+
+	/**
+	 * Sets the context output of the sentry client.
+	 * @param ?ContextOutputInterface $contextOutput The context output of the sentry client.
+	 * @return SentryClientConfiguration The `SentryClient` configuration.
+	 */
+	public function setContextOutput( ?ContextOutputInterface $contextOutput ): self
+	{
+		$this->contextOutput = $contextOutput;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getTagsOutput(): ?TagsOutputInterface
+	{
+		return $this->tagsOutput;
+	}
+
+	/**
+	 * Sets the tags output of the sentry client.
+	 * @param ?TagsOutputInterface $tagsOutput The tags output of the sentry client.
+	 * @return SentryClientConfiguration The `SentryClient` configuration.
+	 */
+	public function setTagsOutput( ?TagsOutputInterface $tagsOutput ): self
+	{
+		$this->tagsOutput = $tagsOutput;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getUserOutput(): ?UserOutputInterface
+	{
+		return $this->userOutput;
+	}
+
+	/**
+	 * Sets the user output of the sentry client.
+	 * @param ?UserOutputInterface $userOutput The user output of the sentry client.
+	 * @return SentryClientConfiguration The `SentryClient` configuration.
+	 */
+	public function setUserOutput( ?UserOutputInterface $userOutput ): self
+	{
+		$this->userOutput = $userOutput;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getMessageOutput(): ?MessageOutputInterface
+	{
+		return $this->messageOutput;
+	}
+
+	/**
+	 * Sets the message output of the sentry client.
+	 * @param ?MessageOutputInterface $messageOutput The message output of the sentry client.
+	 * @return SentryClientConfiguration The `SentryClient` configuration.
+	 */
+	public function setMessageOutput( ?MessageOutputInterface $messageOutput ): self
+	{
+		$this->messageOutput = $messageOutput;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getErrorOutput(): ?ErrorOutputInterface
+	{
+		return $this->errorOutput;
+	}
+
+	/**
+	 * Sets the error output of the sentry client.
+	 * @param ?ErrorOutputInterface $errorOutput The error output of the sentry client.
+	 * @return SentryClientConfiguration The `SentryClient` configuration.
+	 */
+	public function setErrorOutput( ?ErrorOutputInterface $errorOutput ): self
+	{
+		$this->errorOutput = $errorOutput;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getThrowableOutput(): ?ThrowableOutputInterface
+	{
+		return $this->throwableOutput;
+	}
+
+	/**
+	 * Sets the throwable output of the sentry client.
+	 * @param ?ThrowableOutputInterface $throwableOutput The throwable output of the sentry client.
+	 * @return SentryClientConfiguration The `SentryClient` configuration.
+	 */
+	public function setThrowableOutput( ?ThrowableOutputInterface $throwableOutput ): self
+	{
+		$this->throwableOutput = $throwableOutput;
 
 		return $this;
 	}
