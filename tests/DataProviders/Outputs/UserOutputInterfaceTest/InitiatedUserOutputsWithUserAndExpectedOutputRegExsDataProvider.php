@@ -3,6 +3,7 @@ namespace CodeKandis\SentryClient\Tests\DataProviders\Outputs\UserOutputInterfac
 
 use ArrayIterator;
 use CodeKandis\SentryClient\Outputs\UserOutput;
+use CodeKandis\SentryClient\Outputs\UserOutputInterface;
 
 /**
  * Represents a data provider providing initiated user outputs with user and expected output regular expressions.
@@ -19,6 +20,18 @@ class InitiatedUserOutputsWithUserAndExpectedOutputRegExsDataProvider extends Ar
 		parent::__construct(
 			[
 				0 => [
+					'userOutput'          => new class() implements UserOutputInterface {
+						public function print( array $user ): void
+						{
+							echo 'user output';
+						}
+					},
+					'user'                => [],
+					'expectedOutputRegEx' => <<<END
+^user output$
+END
+				],
+				1 => [
 					'userOutput'          => new UserOutput(),
 					'user'                => [
 						'id'         => 'codekandis',
