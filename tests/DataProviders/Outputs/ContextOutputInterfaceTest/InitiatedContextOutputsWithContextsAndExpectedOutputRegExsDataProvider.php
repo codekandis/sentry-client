@@ -3,6 +3,7 @@ namespace CodeKandis\SentryClient\Tests\DataProviders\Outputs\ContextOutputInter
 
 use ArrayIterator;
 use CodeKandis\SentryClient\Outputs\ContextOutput;
+use CodeKandis\SentryClient\Outputs\ContextOutputInterface;
 
 /**
  * Represents a data provider providing initiated context outputs with contexts and expected output regular expressions.
@@ -19,6 +20,18 @@ class InitiatedContextOutputsWithContextsAndExpectedOutputRegExsDataProvider ext
 		parent::__construct(
 			[
 				0 => [
+					'contextOutput'       => new class() implements ContextOutputInterface {
+						public function print( array $context ): void
+						{
+							echo 'context output';
+						}
+					},
+					'context'             => [],
+					'expectedOutputRegEx' => <<<END
+^context output$
+END
+				],
+				1 => [
 					'contextOutput'       => new ContextOutput(),
 					'context'             => [
 						'context_key_1' => 'context_value_1',
