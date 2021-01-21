@@ -3,6 +3,7 @@ namespace CodeKandis\SentryClient\Tests\DataProviders\Outputs\TagsOutputInterfac
 
 use ArrayIterator;
 use CodeKandis\SentryClient\Outputs\TagsOutput;
+use CodeKandis\SentryClient\Outputs\TagsOutputInterface;
 
 /**
  * Represents a data provider providing initiated tags outputs with tags and expected output regular expressions.
@@ -19,6 +20,18 @@ class InitiatedTagsOutputsWithTagsAndExpectedOutputRegExsDataProvider extends Ar
 		parent::__construct(
 			[
 				0 => [
+					'tagsOutput'          => new class() implements TagsOutputInterface {
+						public function print( array $tags ): void
+						{
+							echo 'tags output';
+						}
+					},
+					'tags'                => [],
+					'expectedOutputRegEx' => <<<END
+^tags output$
+END
+				],
+				1 => [
 					'tagsOutput'          => new TagsOutput(),
 					'tags'                => [
 						'tag_key_1' => 'tag_value_1',
