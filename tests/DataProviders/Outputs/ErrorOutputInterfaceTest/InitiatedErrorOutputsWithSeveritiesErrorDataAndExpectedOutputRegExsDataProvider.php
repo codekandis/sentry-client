@@ -4,6 +4,7 @@ namespace CodeKandis\SentryClient\Tests\DataProviders\Outputs\ErrorOutputInterfa
 use ArrayIterator;
 use CodeKandis\SentryClient\ErrorLevelValues;
 use CodeKandis\SentryClient\Outputs\ErrorOutput;
+use CodeKandis\SentryClient\Outputs\ErrorOutputInterface;
 use CodeKandis\SentryClient\Severities;
 
 /**
@@ -21,7 +22,23 @@ class InitiatedErrorOutputsWithSeveritiesErrorDataAndExpectedOutputRegExsDataPro
 		parent::__construct(
 			[
 				0 => [
-					'messageOutput'       => new ErrorOutput(),
+					'errorOutput'         => new class() implements ErrorOutputInterface {
+						public function print( string $severity, int $level, string $message, string $file, int $line ): void
+						{
+							echo 'error output';
+						}
+					},
+					'severity'            => Severities::INFO,
+					'level'               => ErrorLevelValues::E_NOTICE,
+					'message'             => 'an error message',
+					'file'                => '/path/to/a/file',
+					'line'                => 42,
+					'expectedOutputRegEx' => <<<END
+^error output$
+END
+				],
+				1 => [
+					'errorOutput'         => new ErrorOutput(),
 					'severity'            => Severities::INFO,
 					'level'               => ErrorLevelValues::E_NOTICE,
 					'message'             => 'an error message',
@@ -38,8 +55,8 @@ class InitiatedErrorOutputsWithSeveritiesErrorDataAndExpectedOutputRegExsDataPro
 $
 END
 				],
-				1 => [
-					'messageOutput'       => new ErrorOutput(),
+				2 => [
+					'errorOutput'         => new ErrorOutput(),
 					'severity'            => Severities::WARNING,
 					'level'               => ErrorLevelValues::E_ALL,
 					'message'             => 'another error message',
