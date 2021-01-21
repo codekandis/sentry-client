@@ -2,7 +2,9 @@
 namespace CodeKandis\SentryClient\Tests\DataProviders\Outputs\MessageOutputInterfaceTest;
 
 use ArrayIterator;
+use CodeKandis\SentryClient\ErrorLevelValues;
 use CodeKandis\SentryClient\Outputs\MessageOutput;
+use CodeKandis\SentryClient\Outputs\MessageOutputInterface;
 use CodeKandis\SentryClient\Severities;
 
 /**
@@ -20,6 +22,19 @@ class InitiatedMessageOutputsWithSeveritiesMessagesAndExpectedOutputRegExsDataPr
 		parent::__construct(
 			[
 				0 => [
+					'messageOutput'       => new class() implements MessageOutputInterface {
+						public function print( string $severity, string $message ): void
+						{
+							echo 'message output';
+						}
+					},
+					'severity'            => Severities::INFO,
+					'message'             => 'a captured message',
+					'expectedOutputRegEx' => <<<END
+^message output$
+END
+				],
+				1 => [
 					'messageOutput'       => new MessageOutput(),
 					'severity'            => Severities::INFO,
 					'message'             => 'a captured message',
@@ -30,7 +45,7 @@ class InitiatedMessageOutputsWithSeveritiesMessagesAndExpectedOutputRegExsDataPr
 $
 END
 				],
-				1 => [
+				2 => [
 					'messageOutput'       => new MessageOutput(),
 					'severity'            => Severities::WARNING,
 					'message'             => 'another captured message',
