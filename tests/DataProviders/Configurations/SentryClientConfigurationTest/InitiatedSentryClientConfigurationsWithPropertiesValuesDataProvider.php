@@ -3,6 +3,12 @@ namespace CodeKandis\SentryClient\Tests\DataProviders\Configurations\SentryClien
 
 use ArrayIterator;
 use CodeKandis\SentryClient\Configurations\SentryClientConfiguration;
+use CodeKandis\SentryClient\Outputs\ContextOutput;
+use CodeKandis\SentryClient\Outputs\ErrorOutput;
+use CodeKandis\SentryClient\Outputs\MessageOutput;
+use CodeKandis\SentryClient\Outputs\TagsOutput;
+use CodeKandis\SentryClient\Outputs\ThrowableOutput;
+use CodeKandis\SentryClient\Outputs\UserOutput;
 
 /**
  * Represents a data provider providing initiated sentry client configurations with properties values.
@@ -57,7 +63,13 @@ class InitiatedSentryClientConfigurationsWithPropertiesValuesDataProvider extend
 							'h'
 						],
 						'projectRoot'           => 'projectRoot',
-						'sendAttempts'          => 3
+						'sendAttempts'          => 3,
+						'contextOutput'         => new ContextOutput(),
+						'tagsOutput'            => new TagsOutput(),
+						'userOutput'            => new UserOutput(),
+						'messageOutput'         => new MessageOutput(),
+						'errorOutput'           => new ErrorOutput(),
+						'throwableOutput'       => new ThrowableOutput()
 					]
 				],
 				1 => [
@@ -87,7 +99,13 @@ class InitiatedSentryClientConfigurationsWithPropertiesValuesDataProvider extend
 						'excludedExceptions'    => null,
 						'prefixes'              => null,
 						'projectRoot'           => null,
-						'sendAttempts'          => null
+						'sendAttempts'          => null,
+						'contextOutput'         => null,
+						'tagsOutput'            => null,
+						'userOutput'            => null,
+						'messageOutput'         => null,
+						'errorOutput'           => null,
+						'throwableOutput'       => null
 					]
 				]
 			]
